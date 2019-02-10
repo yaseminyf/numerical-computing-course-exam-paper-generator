@@ -1,0 +1,24 @@
+Scrivere le istruzioni {\tt Matlab} necessarie a definire lo ``splitting'' $A=L+D+U$ di una matrice $A$ di dimensione $n \times n$ (non devono essere utilizzate la function di {\tt Matlab}: {\tt diag, triu, tril}):
+\[ L=
+\left( \begin{array}{cccc}
+  0 &  0 & \dots & 0 \\
+  a_{21}   & 0 & \ldots & 0 \\
+%  a_{31} & a_{32} &\dots & 0 \\
+&   \ddots&  & \vdots\\
+  a_{n1} &  \dots & a_{n\,   n-1}& 0 \\
+\end{array} \right), \, D=
+\left( \begin{array}{cccc}
+  a_{11} & 0 &\dots & 0 \\
+  0 & a_{22} & \dots & 0 \\
+%  0 & 0 & a_{33} & \dots \\
+& & \ddots& \\
+  0 & 0&\dots & a_{nn} \\
+\end{array} \right), \,
+ U = \left( \begin{array}{cccc}
+  0 & a_{12} &\dots &  a_{1n} \\
+%  0 & 0 & \dots & a_{2n} \\
+  0 &  0 &\ddots &   \vdots \\
+  \vdots&    \vdots &   & a_{n-1\, n} \\
+  0 & 0&\dots   &0\\
+\end{array} \right)
+\] 

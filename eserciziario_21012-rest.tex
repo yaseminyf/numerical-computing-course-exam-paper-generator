@@ -1,0 +1,184 @@
+\documentclass[11pt]{article}
+\hoffset=-15mm \voffset=-15mm
+\textheight=225mm \textwidth=160mm
+%\evensidemargin=10mm
+\oddsidemargin=18mm
+
+\def\N{\hbox{I\kern-.2em\hbox{N}}}
+\def\P{\hbox{I\kern-.2em\hbox{P}}}
+\def\R{\hbox{\rm I\kern-.2em\hbox{\rm R}}}
+\def\Z{\hbox{\rm Z\kern-4.0pt{\rm Z}}}
+\def\conv{{\hbox{$ \bigcirc \kern-0.6em \scriptstyle  5  $}}}
+\def\ee{\`e }
+%%  Matrices
+\newcommand{\svec}[2]{\begin{pmatrix} #1 \\ #2 \end{pmatrix}}
+\newcommand{\smat}[4]{\begin{pmatrix} #1 & #2 \\ #3 & #4 \end{pmatrix}}
+\newcommand{\narrowbrace}[2]{\,\,\underbrace{\!\!#1\!\!}_{#2}\,\,}
+
+%%  Latin Abbreviations
+%\newcommand\eg{{\it\thinspace e.g.}}
+\newcommand\ie{{\it\thinspace i.e.}}
+\begin{document}
+\vskip 10pt \noindent
+
+
+\vskip 20pt
+\noindent
+
+ \vskip 20 pt \noindent 
+\vskip 20pt
+\noindent
+\vskip 20pt  \noindent {\bf Esercizio 1.}
+Consideriamo un elaboratore operante con
+rappresentazione in base $\beta=10$, aritmetica floating-point e
+tecnica di troncamento. Siano  $m=4$ le cifre a disposizione della mantissa
+e  $n=1$ le cifre per la  caratteristica, escluso il segno.
+\vskip 2pt
+\noindent
+i) Si indichi l'insieme ${\cal F}$ dei numeri di macchina ed il valore della precisione di macchina.
+\vskip 2pt    \noindent
+ii) Si  rappresentino in macchina   le seguenti matrici
+$$
+A=
+\left(
+\begin{array}{rr}
+-56.924 \,& -4.008765\\
+-0.00452 \,&  1.1
+\end{array}
+\right)
+\quad \quad
+B=
+\left(
+\begin{array}{rr}
+-56.0\, 10^7\, & -40.9\, 10^8\\
+0.1\, 10^{-12} \,&  0.0
+\end{array}
+\right)
+\quad \quad
+$$
+\vskip 2pt    \noindent
+iii)
+Usando l'aritmetica dell'elaboratore  si calcoli la norma 1 e la norma infinito di $A$.
+\medskip \noindent {\bf Svolgimento Esercizio 1.}
+\\
+i)   L'insieme  ${\cal F}$ dei numeri di macchina  \`e  costituito dai numeri
+$x\in \R$ della forma
+$$
+x=\pm \, 0.a_1a_2a_3a_4\, \beta^b, \quad \quad \mbox{dove }\quad \quad  a_1\neq 0, \quad \beta=10, \quad
+ -9\le b\le 9.
+$$
+Quindi si indica ${\cal F}(\beta, m, L, U)={\cal F}(10, 4, -9, 9)$.
+\\
+Dato che l'elaboratore opera per troncamento, la precisione di macchina
+\`e $\epsilon_m=\beta^{1-m}=10^{-3}$.
+\vskip 4pt
+\noindent
+ii) Rappresentiamo in macchina   le matrici $A$ e $B$:
+\begin{eqnarray}
+A&=&
+\left(
+\begin{array}{ll}
+-0.56924\, 10^2 \,& -0.4008765\, 10^1\\
+-0.452\, 10^{-2}  \,&  +0.11  \, 10^1
+\end{array}
+\right)
+\quad \quad  \Rightarrow  \quad fl(A)=\left(
+\begin{array}{ll}
+-0.5692\, 10^2 \,& -0.4008\,\, 10^1\\
+-0.4520\, \,10^{-2}  \,&  +0.1100 \, \, 10^1
+\end{array}
+\right)    \nonumber \\
+& & \nonumber \\
+& & \nonumber \\
+B&=&
+\left(
+\begin{array}{ll}
+-0.560\, 10^9\,\, & -0.409\,\, 10^{10} \\
++0.1\,\, 10^{-12}  &  +0.0
+\end{array}
+\right)  \quad \quad   \Rightarrow \quad fl(B)= \left(
+\begin{array}{ll}
+-0.5600\, 10^9\, & \overbrace{-0.4090\, 10^{10}}^{overflow} \\
+\underbrace{+0.1000\, 10^{-12}  }_{underflow}\,&  +0.0000\,\,10^0
+\end{array}
+\right)   \nonumber
+\end{eqnarray}
+\vskip 10pt
+\noindent
+iii) Posto $A=(a_{ij})\in \R^{2\times 2}$  abbiamo
+$\|fl(A)\|_1=\max\left\{|a_{11}|+|a_{21}|,\, |a_{12}|+|a_{22}| \right\} $
+e $\|fl(A)\|_{\infty}=\max\left\{|a_{11}|+|a_{12}|,\, |a_{21}|+|a_{22}| \right\}$.
+\\
+Usando l'aritmetica dell'elaboratore calcoliamo $\|fl(A)\|_1$ e $\|fl(A)\|_{\infty}$.
+\begin{eqnarray}
+\|fl(A)\|_1&=&\max \left\{0.5692\, 10^2 \oplus 0.4520\, \,10^{-2},\, 0.4008\, 10^1 \oplus 0.1100 \, \, 10^1   \right\}
+\\ \nonumber
+& =& \max\left\{0.5692\, 10^2 \oplus 0.0000\, \,10^{2},\,0.4008\, 10^1 \oplus 0.1100 \, \, 10^1   \right\} =0.5692\, 10^2
+\end{eqnarray}
+\begin{eqnarray}
+\|fl(A)\|_\infty&=&\max \left\{0.5692\, 10^2 \oplus 0.4008 \, 10^1 \, 0.4520\, \,10^{-2}  \oplus 0.1100 \, \, 10^1   \right\}
+\\ \nonumber
+& =& \max\left\{0.5692\, 10^2 \oplus 0.0400\, \,10^{2},\,0.0004\, 10^1 \oplus 0.1100 \, \, 10^1   \right\} =0.6092\, 10^2
+\end{eqnarray}
+\vskip 20pt  \noindent {\bf Esercizio 1.}
+Consideriamo un elaboratore operante con
+rappresentazione in base $\beta=10$, aritmetica floating-point e
+tecnica di troncamento. Siano  $m=4$ le cifre a disposizione della mantissa
+e  $n=1$ le cifre per la  caratteristica, escluso il segno.
+\\
+i) Si indichi l'insieme ${\cal F}$ dei numeri di macchina ed il valore della precisione di macchina.
+\\
+ii) Si  rappresentino in macchina   le seguenti matrici
+$$
+A=
+\left(
+\begin{array}{rr}
+-68.7254 \, & -7.008765\\
+-2.452 \,&  0.08765
+\end{array}
+\right)
+\quad \quad
+B=
+\left(
+\begin{array}{rr}
+-56.0\, 10^7 \,& -40.9\, 10^8\\
+0.1\, 10^{-12} \,&  0.0
+\end{array}
+\right)
+\quad \quad
+$$
+\\
+iii)
+Usando l'aritmetica dell'elaboratore  si calcoli la norma 1 e la 
+\medskip \noindent {\bf Svolgimento Esercizio 1.}
+\\
+\underline{Si procede come nell'Esercizio 1, pagina 14.}
+La rappresentazione floating point di $A$ e $B$ \ee
+\begin{eqnarray}
+fl(A)&=&
+\left(
+\begin{array}{ll}
+-0.6872\, 10^2 \,& -0.7008\, 10^1\\
+-0.2452\, 10^{1}  \,&  +0.8765 \, 10^{-1}
+\end{array}
+\right)
+\quad \quad
+fl(B)= \left(
+\begin{array}{ll}
+-0.5600\, 10^9\, & \overbrace{-0.4090\, 10^{10}}^{overflow} \\
+\underbrace{+0.1000\, 10^{-12}  }_{underflow}\,&  +0.0000\,\,10^0
+\end{array}
+\right)   \nonumber
+\end{eqnarray}
+\vskip 10pt \noindent
+Inoltre $\|fl(A)\|_1=0.7117\, 10^2$,  $\,\,\|fl(A)\|_\infty =0.7572\, 10^2$.norma infinito di $A$.
+\medskip \noindent 
+\medskip  \medskip\medskip\noindent
+
+\vskip 20pt
+\noindent
+
+\vskip 30pt
+\noindent
+
+\end{document}
